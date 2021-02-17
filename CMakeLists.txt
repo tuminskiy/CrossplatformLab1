@@ -54,8 +54,8 @@ set(SRC main.cpp
   ${UTIL_SRC}
 )
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 target_include_directories(dev_os_homework PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_sources(dev_os_homework PRIVATE ${SRC})
-target_link_libraries(dev_os_homework PRIVATE Qt5::Widgets)
+target_link_libraries(dev_os_homework PRIVATE Qt5::Core Qt5::Widgets)

@@ -6,12 +6,10 @@ branches:
     - master
 
 install:
-  - set QTDIR=C:\Qt\5.15.2\mingw81_64
-  - set PATH=%QTDIR%\bin;C:\MinGW\bin;%PATH%
-  - set Qt5_DIR=C:\Qt\5.15.2\mingw81_64\lib\cmake\Qt5
+  - set PATH=C:\Qt\5.15.2\msvc2019_64\bin;%PATH%
 
 build_script:
   - mkdir build
   - cd build
-  - cmake.exe -G "MinGW Makefiles" ..
-  - cmake.exe --build .
+  - cmake -G "Visual Studio 16 2019" -D Qt5_DIR=C:\Qt\5.15.2\msvc2019_64\lib\cmake\Qt5 ..
+  - cmake --build .

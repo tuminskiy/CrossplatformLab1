@@ -38,7 +38,7 @@ public:
   {
     QFile file(filename_);
 
-    if (!open_file(file, QIODevice::ReadOnly) || (file.size() % sizeof(value_type)))
+    if (!open_file(file, QIODevice::ReadOnly))
       return {};
 
     QDataStream ds(&file);

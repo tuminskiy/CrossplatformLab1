@@ -8,7 +8,7 @@ class InfoDialog : public QDialog
 {
   Q_OBJECT
 
-  Ui::InfoDialog ui;
+  Ui::InfoDialog ui_;
 
 public:
   explicit InfoDialog(Info info = {}, QWidget *parent = nullptr);
@@ -18,5 +18,8 @@ signals:
 
 private slots:
   void ok_click();
+
+private:
+  bool is_valid_input() const;
 };
 

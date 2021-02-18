@@ -50,7 +50,7 @@ QVariant TestTableModel::headerData(int section, Qt::Orientation orientation, in
 
 bool TestTableModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-  if (!index.isValid() || role != Qt::EditRole)
+  if (!index.isValid() || role != Qt::EditRole || value.toString().isEmpty())
     return false;
 
   const auto info = qvariant_cast<Info>(value);
@@ -187,7 +187,7 @@ QVariant TestTableModel::get_value(const QModelIndex& index) const
 
 bool TestTableModel::is_valid_pos(int pos) const
 {
-  return pos >= 0 && pos < data_.size();
+  return pos >= 0 && pos <= data_.size();
 }
 
 auto TestTableModel::it_by_pos(int pos) -> iterator

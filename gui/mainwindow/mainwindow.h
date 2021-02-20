@@ -8,7 +8,6 @@
 #include "model/testmodel/testtablemodel.h"
 #include "info.h"
 
-
 class MainWindow : public QMainWindow
 {
   Q_OBJECT

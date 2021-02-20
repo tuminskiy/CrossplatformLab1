@@ -2,6 +2,8 @@
 
 #include "gui/infodialog/infodialog.h"
 #include "util/widgetenabledguard/widgetenabledguard.h"
+#include "util/functional/functional.h"
+#include "util/indexadapter/indexadapter.h"
 #include "storage/database.h"
 
 #include <QFileDialog>
@@ -71,19 +73,9 @@ void MainWindow::delete_click()
 }
 
 
-void MainWindow::select_rows(const QItemSelection& selected, const QItemSelection& /*deselected*/)
+void MainWindow::select_rows(const QItemSelection& /*selected*/, const QItemSelection& /*deselected*/)
 {
-  auto indexes = ui_.tableView->selectionModel()->selectedIndexes();
-
-  const auto unique_compare = [](const QModelIndex& lhs, const QModelIndex& rhs) {
-    return lhs.row() == rhs.row();
-  };
-
-  auto new_end = std::unique(indexes.begin(), indexes.end(), unique_compare);
-  indexes.erase(new_end, indexes.end());
-
-  selected_ = indexes;
-
+  selected_ = ui_.tableView->selectionModel()->selectedIndexes();
   emit selected_changed();
 }
 

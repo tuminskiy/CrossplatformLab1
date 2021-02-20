@@ -2,8 +2,6 @@
 
 #include "gui/infodialog/infodialog.h"
 #include "util/widgetenabledguard/widgetenabledguard.h"
-#include "util/functional/functional.h"
-#include "util/indexadapter/indexadapter.h"
 #include "storage/database.h"
 
 #include <QFileDialog>

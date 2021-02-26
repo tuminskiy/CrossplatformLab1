@@ -61,19 +61,31 @@ void MainWindow::add_click()
 
 void MainWindow::delete_click()
 {
-  util::WidgetEnabledGuard wguard = { ui_.bAdd, ui_.bDelete, ui_.menu};
+  util::WidgetEnabledGuard wguard = { ui_.bAdd, ui_.bDelete, ui_.menu };
 
   if (selected_.size() == 1) {
     model_.erase(selected_.front().row());
   } else {
     model_.erase(selected_.front().row(), selected_.back().row());
   }
+
+  selected_.clear();
 }
 
 
 void MainWindow::select_rows(const QItemSelection& /*selected*/, const QItemSelection& /*deselected*/)
 {
-  selected_ = ui_.tableView->selectionModel()->selectedIndexes();
+  auto indexes = ui_.tableView->selectionModel()->selectedIndexes();
+
+  const auto unique_compare = [](const auto& lhs, const auto& rhs) {
+    return lhs.row() == rhs.row();
+  };
+
+  const auto new_end = std::unique(indexes.begin(), indexes.end(), unique_compare);
+  indexes.erase(new_end, indexes.end());
+
+  selected_ = indexes;
+
   emit selected_changed();
 }
 
@@ -85,7 +97,7 @@ void MainWindow::save_click()
   if (path.isEmpty())
     return;
 
-  util::WidgetEnabledGuard wguard = {ui_.bAdd, ui_.bDelete, ui_.menu};
+  util::WidgetEnabledGuard wguard = { ui_.bAdd, ui_.bDelete, ui_.menu };
 
   storage::Database<Info> db(path);
   db.clear();
@@ -107,7 +119,7 @@ void MainWindow::load_click()
   if (path.isEmpty())
     return;
 
-  util::WidgetEnabledGuard wguard = {ui_.bAdd, ui_.bDelete, ui_.menu};
+  util::WidgetEnabledGuard wguard = { ui_.bAdd, ui_.bDelete, ui_.menu };
 
   storage::Database<Info> db(path);
   const auto data = db.load();

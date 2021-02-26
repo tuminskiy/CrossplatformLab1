@@ -160,9 +160,9 @@ void TestTableModel::erase(int first, int last)
 
 void TestTableModel::clear()
 {
-  beginRemoveRows({}, 0, data_.size());
+  beginResetModel();
   data_.clear();
-  endRemoveRows();
+  endResetModel();
 }
 
 

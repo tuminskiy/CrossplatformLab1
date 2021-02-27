@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.5)
 
 project(dev_os_homework_1 LANGUAGES CXX)
 
-add_executable(dev_os_homework)
+if (WIN32)
+  set(EXEC_FLAG WIN32)
+endif()
+
+add_executable(dev_os_homework ${EXEC_FLAG})
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
   message("Debug mode")
